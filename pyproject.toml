@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pytest-edit"
+version = "1.0"
+description = "Edit the source code of a failed test with `pytest --edit`."
+readme = "README.md"
+authors = [
+    { name="Błażej Michalik", email="code.mrmino@gmail.com" }
+]
+license = { text="MIT" }
+classifiers = [
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Framework :: Pytest"
+]
+dependencies = [
+    "pytest"
+]
+
+[project.urls]
+Homepage = "https://github.com/mrmino/pytest-edit"
+
+[project.entry-points."pytest11"]
+pytest_edit="pytest_edit"
