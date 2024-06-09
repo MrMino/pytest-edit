@@ -95,7 +95,10 @@ def open_editor(path, lineno: int | None = None, editor: str | None = None) -> s
         editor = choose_editor()
 
     if editor is None:
-        raise RuntimeError("No 'editor' value given and no default available.")
+        print("No '$EDITOR' value set and no default available.")
+        pytest.exit(returncode=1)
+
+    assert editor is not None
 
     editor_name, _ = os.path.splitext(editor)
     if lineno is None:
@@ -105,7 +108,9 @@ def open_editor(path, lineno: int | None = None, editor: str | None = None) -> s
         opts = opt_generator(path, lineno)
 
     exec_path = shutil.which(editor)
-    assert isinstance(exec_path, str)
+    if exec_path is None:
+        print(f"Executable specified via '$EDITOR' could not be found: {editor!r}.")
+        pytest.exit(returncode=1)
 
     argv = [exec_path] + opts
     call = call_tty_child if USES_TTY.get(editor_name, True) else call_detached
