@@ -101,14 +101,14 @@ def open_editor(path, lineno: int | None = None, editor: str | None = None) -> s
     if lineno is None:
         opts = [path]
     else:
-        opt_generator = OPT_GENERATOR[editor_name]
+        opt_generator = OPT_GENERATOR.get(editor_name, no_lineno)
         opts = opt_generator(path, lineno)
 
     exec_path = shutil.which(editor)
     assert isinstance(exec_path, str)
 
     argv = [exec_path] + opts
-    call = call_tty_child if USES_TTY[editor_name] else call_detached
+    call = call_tty_child if USES_TTY.get(editor_name, True) else call_detached
 
     call(argv)
 
@@ -171,7 +171,7 @@ def pytest_sessionstart(session):
         path, lineno, nodeid = failed[edit_idx]
     except IndexError:
         pytest.exit(
-            f"Test index specified for --edit is out of bounds: {edit_idx} "
+            f"Test index specified for --edit is out of bounds: {edit_idx}. "
             f"There are {len(failed)} failed tests."
         )
 
