@@ -18,6 +18,17 @@ Usage:
 pytest --edit
 ```
 
+This will open your `$EDITOR` at the first line of the last failed test. Not
+all editors are capable of opening a file at a given line, and not all editors
+that do are supported by `pytest-edit`. See below.
+
+You can also specify the test using its index in the shortreport, for example:
+
+```
+pytest --edit=2    # will open the third failed test from the last run.
+pytest --edit=-2   # will open the second-to-last failed test from the last run.
+```
+
 ## Setting the right editor & editor support
 
 Use `$EDITOR` environment variable to set the editor that should be opened.
@@ -31,6 +42,8 @@ The plugin tries to be cleaver about the options given to the detected editor.
 If something is not working properly for you, don't hesitate to
 [open an issue](https://github.com/MrMino/pytest-edit/issues).
 
+If an editor is not supported, the file of the specified test will be opened
+without specifying the line the editor should place the cursor at.
+
 **I have not tested 90% of the editor support** - there are at least 3
-platforms with tens of different editors. I use Linux and NeoVim. If you use
-anything else, your results may vary. Issues & PRs welcome.
+platforms with tens of different editors. Issues & PRs welcome.
