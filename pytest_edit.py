@@ -150,7 +150,8 @@ def pytest_sessionstart(session):
 
     failed = session.config.cache.get(CACHE_KEY, [])
     if not failed:
-        pytest.exit(NO_FAILED_TESTS_MSG)
+        print(NO_FAILED_TESTS_MSG)
+        pytest.exit(returncode=0)
     
     if edit_choice is None:
         edit_idx = -1
@@ -158,24 +159,27 @@ def pytest_sessionstart(session):
         try:
             edit_idx = int(edit_choice)
         except ValueError:
-            pytest.exit(
-                f"Wrong value specified for --edit: {edit_choice!r} "
-                f"Use either 'first', 'last', or a number."
+            print(
+                f"Wrong value specified for --edit: {edit_choice!r}.\n"
+                f"Value needs to be a valid integer."
             )
+            pytest.exit(returncode=1)
 
     try:
         path, lineno, nodeid = failed[edit_idx]
     except IndexError:
-        pytest.exit(
-            f"Test index specified for --edit is out of bounds: {edit_idx}. "
+        print(
+            f"Test index specified for --edit is out of bounds: {edit_idx}.\n"
             f"There are {len(failed)} failed tests."
         )
+        pytest.exit(returncode=1)
 
     # Editors count from 1, pytest counts lines from 0
     lineno += 1
 
     opened_editor = open_editor(path, lineno)
-    pytest.exit(f"Opened {path} at {lineno} in editor {opened_editor!r}.", 0)
+    print(f"Opened {path} at line {lineno} in editor {opened_editor!r}.")
+    pytest.exit(returncode=0)
 
 
 @pytest.hookimpl
