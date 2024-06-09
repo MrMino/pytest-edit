@@ -123,6 +123,7 @@ No tests recorded as failed by pytest-edit.
 If you just installed this plugin, rerun your tests to let it record the edit locations.
 """
 
+
 @pytest.hookimpl
 def pytest_addoption(parser):
     parser.addoption(
@@ -152,7 +153,7 @@ def pytest_sessionstart(session):
     if not failed:
         print(NO_FAILED_TESTS_MSG)
         pytest.exit(returncode=0)
-    
+
     if edit_choice is None:
         edit_idx = -1
     else:
@@ -190,4 +191,3 @@ def pytest_terminal_summary(terminalreporter, exitstatus, config):
         # path, lineno, nodeid
         location_info = [report.location for report in failure_reports]
         config.cache.set(CACHE_KEY, location_info)
-
