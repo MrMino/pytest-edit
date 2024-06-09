@@ -130,14 +130,15 @@ def pytest_addoption(parser):
         action="store",
         help=(
             "Open failed test in the editor specified via $EDITOR environment "
-            "variable. Choose the test to open by specifying 'first', 'last', a "
-            "number, or a test name. Omitting this will open the last failed test. "
+            "variable. Choose the test to open by specifying a number "
+            "or a test name. Omitting this will open editor on the last failed test. "
             "A number will be interpretted as the index in the short summary "
-            "list, for the test to open, starting from 0."
+            "list of failed tests, starting from 0."
         ),
         default=NOT_GIVEN,
         nargs="?",
     )
+
 
 @pytest.hookimpl
 def pytest_sessionstart(session):
@@ -152,12 +153,7 @@ def pytest_sessionstart(session):
         pytest.exit(NO_FAILED_TESTS_MSG)
     
     if edit_choice is None:
-        edit_choice = "last"
-
-    if edit_choice == "last":
         edit_idx = -1
-    elif edit_choice == "first":
-        edit_idx = 0
     else:
         try:
             edit_idx = int(edit_choice)
