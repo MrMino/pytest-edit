@@ -131,10 +131,10 @@ def pytest_addoption(parser):
         action="store",
         help=(
             "Open failed test in the editor specified via $EDITOR environment "
-            "variable. Choose the test to open by specifying a number "
-            "or a test name. Omitting this will open editor on the last failed test. "
-            "A number will be interpretted as the index in the short summary "
-            "list of failed tests, starting from 0."
+            "variable. Choose the test to open by specifying a number, e.g. "
+            "'--edit=2'. This number will be interpretted as the index in the short "
+            "summary list of failed tests, starting from 0."
+            "Omitting this number will open editor on the last failed test."
         ),
         default=NOT_GIVEN,
         nargs="?",
