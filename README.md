@@ -12,6 +12,9 @@ Install with:
 pip install pytest-edit
 ```
 
+**After installing the plugin, you need to rerun your tests before the plugin
+will be able to open them for edition.**
+
 Usage:
 
 ```
