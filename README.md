@@ -1,5 +1,6 @@
 # pytest-edit
 
+![PyPI - Version](https://img.shields.io/pypi/v/pytest-edit)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pytest-edit)
 
 A simple Pytest plugin for opening editor on the failed tests.
