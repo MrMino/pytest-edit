@@ -45,6 +45,10 @@ def pycharm_line_opt(path: str, lineno: int) -> list[str]:
     return ["--line", str(lineno), path]
 
 
+def hx_style_linemark(path: str, lineno: int) -> list[str]:
+    return [f"{path}:{lineno}"]
+
+
 OPT_GENERATOR = {
     "vi": vi_style_linemark,
     "vim": vi_style_linemark,
@@ -57,6 +61,7 @@ OPT_GENERATOR = {
     "notepad++": notepad_plus_plus_n_opt,
     "pycharm64": pycharm_line_opt,
     "pycharm": pycharm_line_opt,
+    "hx": hx_style_linemark,
 }
 
 
