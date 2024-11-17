@@ -42,7 +42,7 @@ the editor to `vim`.
 If no editor is set, the defaults are `vi` for POSIX platforms and `notepad`
 for Windows.
 
-The plugin tries to be cleaver about the options given to the detected editor.
+The plugin tries to be clever about the options given to the detected editor.
 If something is not working properly for you, don't hesitate to
 [open an issue](https://github.com/MrMino/pytest-edit/issues).
 
